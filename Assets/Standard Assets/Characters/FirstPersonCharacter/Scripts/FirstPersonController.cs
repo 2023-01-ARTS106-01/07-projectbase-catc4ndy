@@ -131,6 +131,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+
+            private void OnTriggerEnter(Collider other)
+            {
+                other.gameObject.SetActive(false);
+            }
         }
 
 
