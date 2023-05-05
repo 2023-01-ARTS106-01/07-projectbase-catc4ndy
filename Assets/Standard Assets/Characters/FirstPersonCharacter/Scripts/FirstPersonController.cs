@@ -132,10 +132,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MouseLook.UpdateCursorLock();
 
-            private void OnTriggerEnter(Collider other)
-            {
-                other.gameObject.SetActive(false);
-            }
         }
 
 
