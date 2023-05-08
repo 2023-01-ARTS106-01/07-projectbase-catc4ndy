@@ -11,6 +11,8 @@ public class EnemyAIDave : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public float health;
+
      //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -81,6 +83,12 @@ public class EnemyAIDave : MonoBehaviour
 
         if (!alreadyAttacked)
         {
+            ///Attack code here
+            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            ///End of attack code
+
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -89,6 +97,18 @@ public class EnemyAIDave : MonoBehaviour
       private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
